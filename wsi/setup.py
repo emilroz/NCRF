@@ -63,6 +63,7 @@ setup(name='ncrf-wsi',
       cmdclass={'test': PyTest},
       entry_points={
                 'console_scripts': [
-                    'camelyon16xml2json = wsi.bin.camelyon16xml2json:main'
+                    'camelyon16xml2json = wsi.bin.camelyon16xml2json:main',
+                    'json2omero = wsi.bin.json2omeromain'
                 ]},
       )
