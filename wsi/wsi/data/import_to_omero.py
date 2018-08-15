@@ -57,10 +57,14 @@ class OmeroImportHelper(object):
 
     def create_polygon_roi(self, gateway, image_id, annotation):
         roi = omero.model.RoiI()
-        roi.setName(omero.rtypes.rstring(annotation[JSON_NAME_KEY]))
+        name = annotation[JSON_NAME_KEY]
+        if "Annotation" not in name:
+            name = "Annotation" + name
+        name = name + ":" + annotation[JSON_LABEL_KEY]
+        roi.setName(omero.rtypes.rstring(name))
         roi.setDescription(omero.rtypes.rstring(annotation[JSON_LABEL_KEY]))
         polygon = omero.model.PolygonI()
-        polygon.setTextValue(omero.rtypes.rstring(annotation[JSON_NAME_KEY]))
+        polygon.setTextValue(omero.rtypes.rstring(name))
         polygon.setPoints(omero.rtypes.rstring(annotation[JSON_VERTICES_KEY]))
         if annotation[JSON_LABEL_KEY] == JSON_POSITIVE_KEY:
             polygon.setStrokeColor(omero.rtypes.rint(65280))
